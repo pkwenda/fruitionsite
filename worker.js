@@ -172,6 +172,22 @@ class MetaRewriter {
 
 class HeadRewriter {
   element(element) {
+    element.prepend(`
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56407221-3"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-56407221-3');
+        </script>
+        <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/sahildave/sahildave.github.io/master/favicon.png" />
+        <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/sahildave/sahildave.github.io/master/favicon.svg">
+        <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/sahildave/sahildave.github.io/master/apple-touch-icon.png">
+        `, {
+      html: true
+    });
     if (GOOGLE_FONT !== "") {
       element.append(
         `<link href='https://fonts.googleapis.com/css?family=${GOOGLE_FONT.replace(' ', '+')}:Regular,Bold,Italic&display=swap' rel='stylesheet'>
@@ -183,14 +199,21 @@ class HeadRewriter {
     }
     element.append(
       `<style>
+      div.notion-topbar { display: none !important; }
+      div.notion-topbar-mobile { display: none !important; } 
       div.notion-topbar > div > div:nth-child(3) { display: none !important; }
       div.notion-topbar > div > div:nth-child(4) { display: none !important; }
       div.notion-topbar > div > div:nth-child(5) { display: none !important; }
       div.notion-topbar > div > div:nth-child(6) { display: none !important; }
       div.notion-topbar-mobile > div:nth-child(3) { display: none !important; }
       div.notion-topbar-mobile > div:nth-child(4) { display: none !important; }
-      div.notion-topbar > div > div:nth-child(1n).toggle-mode { display: block !important; }
-      div.notion-topbar-mobile > div:nth-child(1n).toggle-mode { display: block !important; }
+      .notion-header-block div {/* H1 */}
+      .notion-header-block span {/* H1 */}
+      .notion-sub_header-block div {/* H2 */}
+      .notion-sub_header-block span {/* H2 */}
+      .notion-sub_sub_header-block div {/* H3 */}
+      .notion-sub_sub_header-block span {/* H3 */}
+      .notion-page-block>div {/* Title */}
       </style>`,
       {
         html: true
