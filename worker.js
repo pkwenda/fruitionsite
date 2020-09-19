@@ -105,6 +105,12 @@ async function fetchAndApply(request) {
     );
     response.headers.set("Content-Type", "application/x-javascript");
     return response;
+  } else if (url.pathname.startsWith('/image')) {
+    response = await fetch(url.toString());
+    // let body = await response;
+    // response = new Response(response);
+    // response.headers.set('Content-Type', 'image/png');
+    return response;
   } else if (url.pathname.startsWith("/api")) {
     // Forward API
     response = await fetch(url.toString(), {
